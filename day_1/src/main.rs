@@ -1,10 +1,9 @@
-use std::fs;
+use parse_input;
 
 // https://adventofcode.com/2021/day/1
 
 fn main() {
-    let input_string = fs::read_to_string("input.txt")
-        .unwrap_or(String::from("Error!"));
+    let input_string = parse_input::parse("input.txt");
     println!("{}", part_one(&input_string));
     println!("{}", part_two(&input_string));
 }
@@ -27,15 +26,15 @@ fn count_increases(numbers: Vec<u32>) -> u32 {
     }).fold(0, |acc, x| acc + x)
 }
 
-fn part_one(input: &String) -> u32 {
-    count_increases(input.lines()
+fn part_one(input: &Vec<String>) -> u32 {
+    count_increases(input.iter()
         .map(|x| x.parse::<u32>().unwrap())
         .collect()
     )
 }
 
-fn part_two(input: &String) -> u32 {
-    count_increases(input.lines()
+fn part_two(input: &Vec<String>) -> u32 {
+    count_increases(input.iter()
         .map(|x| x.parse::<u32>().unwrap())
         .collect::<Vec<u32>>()[0..]
         .windows(3)
